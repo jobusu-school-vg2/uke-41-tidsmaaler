@@ -3,8 +3,14 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput } from 'react-native';
 import TimerButton from './TimerButton';
 
-export default function TimerForm({ id, title, project }) {
-    const submitText = id ? 'Oppdater' : 'Opprett';
+type TimerFormProps = {
+    id?: string;
+    title?: string;
+    project?: string;
+};
+
+export default function TimerForm(props: TimerFormProps) {
+    const submitText = props.id ? 'Oppdater' : 'Opprett';
     return (
         <View style={styles.formContainer}>
             <View style={styles.attributeContainer}>
@@ -13,7 +19,7 @@ export default function TimerForm({ id, title, project }) {
                     <TextInput
                         style={styles.textInput}
                         underlineColorAndroid="transparent"
-                        defaultValue={title}
+                        defaultValue={props.title}
                     />
                 </View>
             </View>
@@ -23,7 +29,7 @@ export default function TimerForm({ id, title, project }) {
                     <TextInput
                         style={styles.textInput}
                         underlineColorAndroid="transparent"
-                        defaultValue={project}
+                        defaultValue={props.project}
                     />
                 </View>
             </View>
@@ -34,7 +40,7 @@ export default function TimerForm({ id, title, project }) {
         </View>
     );
 }
-       
+
 const styles = StyleSheet.create({
     formContainer: {
         backgroundColor: 'white',

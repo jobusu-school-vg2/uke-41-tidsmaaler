@@ -4,8 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import TimerButton from './TimerButton';
 import TimerForm from './TimerForm';
 
-const ToggleableTimerForm = () => {
-    
+export default function ToggleableTimerForm() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -31,5 +30,3 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
     },
 });
-
-export default ToggleableTimerForm;

@@ -1,27 +1,27 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 
-export default function TimerButton({
-    color,
-    title,
-    small,
-    toggleChange
-}) 
+type TimerButtonProps = {
+    color: string;
+    title: string;
+    small?: boolean;
+    toggleChange?: () => void;
+};
 
-{
+export default function TimerButton(props: TimerButtonProps) {
     return (
         <TouchableOpacity
-            style={[styles.button, { borderColor: color }]}
-            onPress={() => {toggleChange()}}
+            style={[styles.button, { borderColor: props.color }]}
+            onPress={props.toggleChange}
         >
             <Text
                 style={[
                     styles.buttonText,
-                    small ? styles.small : styles.large,
-                    { color },
+                    props.small ? styles.small : styles.large,
+                    { color: props.color },
                 ]}
             >
-                {title}
+                {props.title}
             </Text>
         </TouchableOpacity>
     );
