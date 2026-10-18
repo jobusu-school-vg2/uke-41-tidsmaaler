@@ -1,16 +1,23 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { StyleSheet, View, Text, TextInput } from 'react-native';
 import TimerButton from './TimerButton';
 
-type TimerFormProps = {
+
+interface TimerFormProps {
     id?: string;
     title?: string;
-    project?: string;
+    category?: string;
+    onSubmit: (newTitle: string, newCategory: string) => void;
+    onCancel: () => void;
 };
 
 export default function TimerForm(props: TimerFormProps) {
+    const [newTitle, setNewTitle] = useState(props.title ? props.title : '');
+    const [newCategory, setNewCategory] = useState(props.category ? props.category : '')
+
     const submitText = props.id ? 'Oppdater' : 'Opprett';
+
     return (
         <View style={styles.formContainer}>
             <View style={styles.attributeContainer}>
@@ -20,6 +27,7 @@ export default function TimerForm(props: TimerFormProps) {
                         style={styles.textInput}
                         underlineColorAndroid="transparent"
                         defaultValue={props.title}
+                        onChangeText={setNewTitle}
                     />
                 </View>
             </View>
@@ -29,13 +37,14 @@ export default function TimerForm(props: TimerFormProps) {
                     <TextInput
                         style={styles.textInput}
                         underlineColorAndroid="transparent"
-                        defaultValue={props.project}
+                        defaultValue={props.category}
+                        onChangeText={setNewCategory}
                     />
                 </View>
             </View>
             <View style={styles.buttonGroup}>
-                <TimerButton small color="#21BA45" title={submitText} />
-                <TimerButton small color="#DB2828" title="Avbryt" />
+                <TimerButton small color="#21BA45" title={submitText} toggleChange={() => props.onSubmit(newTitle, newCategory)}/>
+                <TimerButton small color="#DB2828" title="Avbryt" toggleChange={props.onCancel}/>
             </View>
         </View>
     );

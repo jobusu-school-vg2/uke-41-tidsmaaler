@@ -3,11 +3,17 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import { millisecondsToHuman } from '../utils/TimerUtils';
 import TimerButton from './TimerButton';
+import Colors from '../configs/colors.config';
+
 
 type TimerProps = {
     title: string;
-    project: string;
+    category: string;
     elapsed: number;
+    isRunning: boolean;
+    onEdit: () => void;
+    onRemove: () => void;
+    onStartPause: () => void;
 };
 
 export default function Timer(props: TimerProps) {
@@ -16,13 +22,17 @@ export default function Timer(props: TimerProps) {
     return (
         <View style={styles.timerContainer}>
             <Text style={styles.title}>{props.title}</Text>
-            <Text>{props.project}</Text>
+            <Text>{props.category}</Text>
             <Text style={styles.elapsedTime}>{elapsedString}</Text>
             <View style={styles.buttonGroup}>
-                <TimerButton color="blue" small title="Endre" />
-                <TimerButton color="blue" small title="Fjern" />
+                <TimerButton color={Colors.blue} small title="Endre" toggleChange={props.onEdit}/>
+                <TimerButton color={Colors.blue} small title="Fjern" toggleChange={props.onRemove}/>
             </View>
-            <TimerButton color="#21BA45" title="Start" />
+            <TimerButton
+                color={props.isRunning ? Colors.red : Colors.green}
+                title={props.isRunning ? 'Pause' : 'Start'}
+                toggleChange={props.onStartPause}
+            />
         </View>
     );
 }

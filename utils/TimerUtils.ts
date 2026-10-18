@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import { Timer } from '../types/index.types';
+
 
 export function millisecondsToHuman(ms: number) {
 	const seconds = Math.floor((ms / 1000) % 60);
@@ -25,15 +27,10 @@ function pad(numberString: string, size: number) {
 };
 
 
-interface newTimerAttrs {
-	title: string;
-	project: string;
-}
-
-export function newTimer(attrs: newTimerAttrs) {
-	const timer = {
-		title: attrs.title || 'Timer',
-		project: attrs.project || 'Project',
+export function newTimer(title: string, category: string): Timer {
+	const timer: Timer = {
+		title,
+		category,
 		id: uuidv4(),
 		elapsed: 0,
 		isRunning: false,

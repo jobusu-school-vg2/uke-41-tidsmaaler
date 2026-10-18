@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
 
+import { StyleSheet, View } from 'react-native';
 import TimerButton from './TimerButton';
 import TimerForm from './TimerForm';
 
-export default function ToggleableTimerForm() {
+
+interface ToggleableTimerFormProps {
+    onSubmit: (title: string, category: string) => void;
+}
+
+export default function ToggleableTimerForm(props: ToggleableTimerFormProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <View style={[styles.container, !isOpen && styles.buttonPadding]}>
             {isOpen ? (
-                <TimerForm />
+                <TimerForm
+                    onSubmit={(title, category) => {
+                        props.onSubmit(title, category);
+                        setIsOpen(false);
+                    }}
+                    onCancel={() => {
+                        setIsOpen(false);
+                    }}
+                />
             ) : (
                 <TimerButton 
                     title="+" 

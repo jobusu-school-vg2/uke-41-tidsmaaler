@@ -4,5 +4,4 @@ export interface Timer {
     category: string;
     elapsed: number;
     isRunning: boolean;
-    editFormOpen: boolean;
 }
